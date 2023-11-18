@@ -6,12 +6,11 @@ import json
 path = 'Dataset/'
 vowels = ['A','E','I','O','U']
 
-
 def map_letter_data(letters, dataset_path, letter_idx):
     letter_paths = os.path.join(dataset_path, letters[letter_idx])
     letter_files = os.listdir(letter_paths)
     print(f"Reading files from letter: {letters[letter_idx]}")
-    return os.path.join(letter_paths,letter_files[letter_idx])
+    return letter_files
 
 def cargar_emg(emg_path):
     try:
@@ -36,6 +35,34 @@ def cargar_emg(emg_path):
     return all_data, fs
 
 if __name__ == "__main__":
-    letter_path = map_letter_data(vowels, path, 1)
-    all_data, fs = cargar_emg(letter_path)
-    print(all_data)
+
+    features = []
+    labels = []
+
+    # Reading all features from EMG signals from all vowels
+    for idx, vowel in enumerate(vowels):
+        letter_files= map_letter_data(vowels, path, idx)
+        letter_paths = os.path.join(path,vowel)
+        
+        for letter_file in letter_files:
+            all_data, fs = cargar_emg(os.path.join(letter_paths,letter_file))
+            features.append(all_data)
+            labels.append(vowel)
+    
+    X_data = np.array(features)
+    X_data = X_data.reshape(X_data.shape[0], -1)
+    print('X_data: ',X_data.shape)
+
+    Y_data = np.array(labels)
+    print('Y_data: ',Y_data.shape)
+
+    all_data_dir = "./training_data"
+    if not os.path.exists(all_data_dir):
+        os.makedirs(all_data_dir)
+        print("Succesfully created training data directory!")
+    
+    with open(f'{all_data_dir}/train.npy', 'wb') as f:
+            np.save(f, X_data)
+            np.save(f, Y_data)
+    print(X_data.shape, Y_data.shape)
+    print("Succesfully saved training data!")
