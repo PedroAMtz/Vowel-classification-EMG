@@ -10,9 +10,9 @@ The history of the experiment can be found at [gbm-extended-version-V1](https://
 Results for this version of the model (extended version-includes all data) show the well performance of the model using the testing dataset of the data. 
 ![Alt text](confusion_mtx_V1.png)
 
-* Classification report:
+**Classification Report:**
 
-|   | Precision | Recall | F1-Score | Support |
+| Vowel  | Precision | Recall | F1-Score | Support |
 |---|-----------|--------|----------|---------|
 | A | 1.00      | 0.92   | 0.96     | 13      |
 | E | 0.89      | 0.89   | 0.89     | 9       |
@@ -33,3 +33,40 @@ Results for this version of the model (extended version-includes all data) show 
   - F1-Score: 0.89
   - Support: 45
 
+---
+
+### LightGBM model - reduced data version V2
+
+This version of the model includes exactly the same version of data used in the extended version model, but this time we implement a dimensionality reduction algorithm in order to decrease the size of input vectors, for this PCA was used and a number of 120 components reduced from the original 5600 components. But with this approach the experiment still uses all data collection mechanisms used to record the EMG signals (electrodes, gyroscope, acceleration). Th classification criteria is the same, multi class classification for vowels (A, E, I, O , U) and the confuguration of the Lgbm model trained are the same from model V1. The history of the experiment can be found at [gbm-extended-version-V2](https://github.com/PedroAMtz/Vowel-classification-EMG/blob/main/GBM-for-Vowel-identification-V2.ipynb).
+
+**Results**
+
+*PCA cumulative variance ratio*
+![Alt text](cum_var_ratio.png)
+
+Results for this version of the model (reduced data version) show the well performance of the model using the testing dataset of the data. 
+
+![Alt text](confusion_mtx_V2.png)
+
+**Classification Report:**
+
+| Vowel | Precision | Recall | F1-Score | Soporte |
+|-------|-----------|--------|----------|---------|
+| A     | 0.92      | 0.85   | 0.88     | 13      |
+| E     | 1.00      | 0.89   | 0.94     | 9       |
+| I     | 0.90      | 0.90   | 0.90     | 10      |
+| O     | 1.00      | 1.00   | 1.00     | 4       |
+| U     | 0.73      | 0.89   | 0.80     | 9       |
+
+**Accuracy:** 0.89
+
+**Macro Avg:**
+  - Precision: 0.91
+  - Recall: 0.90
+  - F1-Score: 0.90
+
+**Weighted Avg:**
+  - Precision: 0.90
+  - Recall: 0.89
+  - F1-Score: 0.89
+  - Soporte: 45
