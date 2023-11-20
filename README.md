@@ -42,6 +42,7 @@ This version of the model includes exactly the same version of data used in the 
 **Results**
 
 *PCA cumulative variance ratio*
+
 ![Alt text](cum_var_ratio.png)
 
 Results for this version of the model (reduced data version) show the well performance of the model using the testing dataset of the data. 
