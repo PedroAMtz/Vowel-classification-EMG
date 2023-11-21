@@ -50,12 +50,14 @@ if __name__ == "__main__":
             labels.append(vowel)
     
     X_data = np.array(features)
+    print(X_data.shape)
     X_data = X_data.reshape(X_data.shape[0], -1)
     print('X_data: ',X_data.shape)
 
     Y_data = np.array(labels)
     print('Y_data: ',Y_data.shape)
 
+    """
     all_data_dir = "./training_data"
     if not os.path.exists(all_data_dir):
         os.makedirs(all_data_dir)
@@ -66,3 +68,4 @@ if __name__ == "__main__":
             np.save(f, Y_data)
     print(X_data.shape, Y_data.shape)
     print("Succesfully saved training data!")
+    """
